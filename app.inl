@@ -64,18 +64,23 @@ std::ostream& operator <<(std::ostream& out, const app::display& d) {
 
 //------------------------------------------------------------------------------
 
-#include "platform.hpp"
-
-#if APP_OS_IOS
+#include "internal/cxx/push.h"
+#include "internal/cxx/cxx.h"
+#if CXX_OS_IOS
 
     #include "internal/ios/app.inl"
 
-#elif APP_OS_MACOS
+#elif CXX_OS_MACOS
 
     #include "internal/macos/app.inl"
 
-#elif APP_OS_WINDOWS
+#elif CXX_OS_WINDOWS
 
     #include "internal/windows/app.inl"
 
-#endif
+#else // CXX_OS_?
+
+    #error "unsupported platform"
+
+#endif // CXX_OS_*
+#include "internal/cxx/pop.h"
