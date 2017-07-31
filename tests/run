@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+testdir="$(cd "$(dirname "$0")" && pwd)"
+testrun="$testdir/testrun"
+
+CXX="c++ -std=c++11 -Wall"
+
+rm -f "$testrun"
+
+$CXX $CXXFLAGS "$testdir/main.cpp" -o "$testrun"
+"$testrun"
+rm -f "$testrun"

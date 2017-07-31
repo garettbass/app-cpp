@@ -1,0 +1,3 @@
+[submodule "internal/objc"]
+	path = internal/objc
+	url = https://github.com/garettbass/objc
