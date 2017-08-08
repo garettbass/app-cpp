@@ -31,6 +31,9 @@ namespace macos {
     using objc::NSArray;
     using objc::NSString;
 
+    using objc::readonly;
+    using objc::readwrite;
+
     //--------------------------------------------------------------------------
 
     template<typename To, typename From>
@@ -87,6 +90,7 @@ namespace macos {
 #include "NSMenuItem.inl"
 #include "NSNotificationCenter.inl"
 #include "NSScreen.inl"
+#include "NSView.inl"
 #include "NSWindow.inl"
 
 #include "AppDelegate.inl"

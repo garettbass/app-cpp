@@ -88,7 +88,7 @@ namespace app {
     window*
     window::create() {
         using namespace macos;
-        return (window*)AppWindow::alloc()->init();
+        return (window*)AppWindow::window();
     }
 
     window*

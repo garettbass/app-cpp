@@ -207,9 +207,9 @@ namespace macos {
         NSWindow*
         init(
             NSRect             contentRect,
-            StyleMask          style,
-            NSBackingStoreType backingStore,
-            bool               defer
+            StyleMask          style        = StyleMask::Default,
+            NSBackingStoreType backingStore = NSBackingStoreType::Buffered,
+            bool               defer        = false
         ) {
             return api.initWithContentRect(
                 this,contentRect,style,backingStore,defer

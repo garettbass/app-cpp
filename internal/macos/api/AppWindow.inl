@@ -3,6 +3,33 @@
 namespace app {
 namespace macos {
 
+    struct AppView : NSView {
+
+        static struct API {
+
+            objc::classid cls {
+                "AppView","NSView",
+
+                objc::method{
+                    "isFlipped",
+                    [](AppView* self,objc::selector){
+                        return true;
+                    }
+                },
+            };
+
+        } api;
+
+        static
+        AppView*
+        view() { return alloc<AppView>()->init<AppView>(); }
+
+    };
+
+    AppView::API AppView::api;
+
+    //--------------------------------------------------------------------------
+
     struct AppWindow : NSWindow {
 
         using behavior_t = app::window::delegate*;
@@ -77,31 +104,26 @@ namespace macos {
             objc::accessor<bool>
             closed {cls,"closed"};
 
+            objc::property<readwrite,NSView*>
+            contentView {"contentView","setContentView:"};
+
         } api;
 
         static app::window* main;
 
         static
         AppWindow*
-        alloc() { return NSObject::alloc<AppWindow>(); }
-
-        AppWindow*
-        init() {
+        window() {
             objc::autoreleasepool autoreleasepool;
             NSRect contentRect { NSScreen::mainScreen()->visibleFrame() };
             contentRect.size.width /= 2;
             contentRect.size.height /= 2;
-            AppWindow* const window {
-                (AppWindow*)NSWindow::init(
-                    contentRect,
-                    StyleMask::Default,
-                    NSBackingStoreType::Buffered,
-                    false
-                )
-            };
+            AppWindow* const window { NSObject::alloc<AppWindow>() };
+            window->init(contentRect);
+            window->contentView(AppView::view());
             window->center();
             window->setReleasedWhenClosed(false);
-            window->setDelegate(this);
+            window->setDelegate(window);
             return window;
         }
 
@@ -119,6 +141,12 @@ namespace macos {
 
         void
         closed(bool closed) { api.closed(this) = closed; }
+
+        NSView*
+        contentView() const { return api.contentView(this); }
+
+        void
+        contentView(NSView* view) { api.contentView(this,view); }
 
     };
 
