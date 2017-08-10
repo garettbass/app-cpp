@@ -39,13 +39,18 @@ int app::main(int argc, char* argv[]) {
     } debug_delegate;
 
     // auto window = app::window::main(
-    auto window = app::window::create(
+    auto* window = app::window::create(
         "hello world",
         &debug_delegate,
         +window::closable
         +window::minimizable
         +window::resizable
     );
+
+    std::cout
+        << "window->graphicsContext:"
+        << ((app::macos::NSWindow*)window)->graphicsContext()
+        << '\n';
 
     std::cout << app::display::primary() << '\n';
 

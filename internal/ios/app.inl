@@ -82,7 +82,7 @@ namespace app {
     window*
     window::create() {
         using namespace ios;
-        return (window*)AppWindow::alloc()->init();
+        return (window*)AppWindow::newWindow();
     }
 
     window*

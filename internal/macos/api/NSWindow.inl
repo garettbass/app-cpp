@@ -97,6 +97,8 @@ namespace macos {
 
     //--------------------------------------------------------------------------
 
+    struct NSGraphicsContext;
+
     struct NSWindow : NSObject {
 
         using CollectionBehavior = NSWindowCollectionBehavior;
@@ -136,6 +138,9 @@ namespace macos {
 
             objc::message<NSRect()>
             frame {"frame"};
+
+            objc::property<readonly,NSGraphicsContext*>
+            graphicsContext {"graphicsContext"};
 
             objc::message<bool()>
             isKeyWindow {"isKeyWindow"};
@@ -200,9 +205,11 @@ namespace macos {
 
         } api;
 
+        using NSObject::alloc;
+
         static
         NSWindow*
-        alloc() { return NSObject::alloc<NSWindow>(); }
+        alloc() { return alloc<NSWindow>(); }
 
         NSWindow*
         init(
@@ -242,6 +249,9 @@ namespace macos {
 
         NSRect
         frame() const { return api.frame(this); }
+
+        NSGraphicsContext*
+        graphicsContext() const { return api.graphicsContext(this); }
 
         bool
         isKeyWindow() const { return api.isKeyWindow(this); }

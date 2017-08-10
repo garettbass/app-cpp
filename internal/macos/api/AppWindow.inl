@@ -22,7 +22,7 @@ namespace macos {
 
         static
         AppView*
-        view() { return alloc<AppView>()->init<AppView>(); }
+        newView() { return alloc<AppView>()->init<AppView>(); }
 
     };
 
@@ -113,14 +113,14 @@ namespace macos {
 
         static
         AppWindow*
-        window() {
+        newWindow() {
             objc::autoreleasepool autoreleasepool;
             NSRect contentRect { NSScreen::mainScreen()->visibleFrame() };
             contentRect.size.width /= 2;
             contentRect.size.height /= 2;
-            AppWindow* const window { NSObject::alloc<AppWindow>() };
+            AppWindow* const window { alloc<AppWindow>() };
             window->init(contentRect);
-            window->contentView(AppView::view());
+            window->contentView(AppView::newView());
             window->center();
             window->setReleasedWhenClosed(false);
             window->setDelegate(window);

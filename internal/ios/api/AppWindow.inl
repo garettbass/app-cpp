@@ -31,16 +31,11 @@ namespace ios {
 
         static
         AppWindow*
-        alloc() { return NSObject::alloc<AppWindow>(); }
-
-        AppWindow*
-        init(CGRect frame) { return (AppWindow*)UIWindow::init(frame); }
-
-        AppWindow*
-        init() {
+        newWindow() {
             objc::autoreleasepool autoreleasepool;
             UIScreen* const screen { UIScreen::mainScreen() };
-            AppWindow* window = init(screen->bounds());
+            AppWindow* const window { alloc<AppWindow>() };
+            window->init(screen->bounds());
             window->backgroundColor(UIColor::redColor());
             return window;
         }
