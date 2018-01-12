@@ -5,7 +5,7 @@ git submodule update --init --recursive
 
 ```c++
 // main.cpp
-#include <app/app.hpp>
+#include <app/app.inl>
 
 int app::main(int argc, char* argv[]) {
     app::window* window = app::window::create("hello world");
